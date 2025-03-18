@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Frontend Inspector Tool",
+    "name": "Frontend Inspector Pro",
     "version": "1.0",
-    "description": "Download and inspect the frontend code of any website with a single click",
+    "description": "Extract structured website information for AI analysis, including class hierarchy and metadata",
     "permissions": [
       "activeTab",
       "scripting",
