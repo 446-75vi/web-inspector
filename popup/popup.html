@@ -4,70 +4,59 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Frontend Inspector Tool</title>
-  <link rel="stylesheet" href="popup.css">
+  <style>
+    body {
+      width: 250px;
+      padding: 15px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    h1 {
+      font-size: 18px;
+      color: #4a86e8;
+      margin-top: 0;
+      margin-bottom: 5px;
+    }
+    p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 15px;
+    }
+    button {
+      background-color: #4a86e8;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #3a76d8;
+    }
+    #status {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #666;
+    }
+    .success {
+      color: #28a745;
+    }
+    .error {
+      color: #dc3545;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Frontend Inspector</h1>
-      <p>Capture and download website frontend code</p>
-    </header>
-    
-    <main>
-      <button id="captureBtn" class="primary-btn">
-        <span class="icon">📥</span>
-        <span>Capture This Page</span>
-      </button>
-      
-      <div id="progressContainer" class="hidden">
-        <div class="progress-text">
-          <span id="currentTask">Starting capture...</span>
-          <span id="progressPercent">0%</span>
-        </div>
-        <div class="progress-bar-container">
-          <div id="progressBar" class="progress-bar"></div>
-        </div>
-        <button id="cancelBtn" class="secondary-btn">Cancel</button>
-      </div>
-      
-      <div id="resultContainer" class="hidden">
-        <div class="result-details">
-          <div class="result-item">
-            <span class="result-label">HTML Files:</span>
-            <span id="htmlCount" class="result-value">0</span>
-          </div>
-          <div class="result-item">
-            <span class="result-label">CSS Files:</span>
-            <span id="cssCount" class="result-value">0</span>
-          </div>
-          <div class="result-item">
-            <span class="result-label">JS Files:</span>
-            <span id="jsCount" class="result-value">0</span>
-          </div>
-          <div class="result-item">
-            <span class="result-label">Other Files:</span>
-            <span id="otherCount" class="result-value">0</span>
-          </div>
-          <div class="result-item">
-            <span class="result-label">Total Size:</span>
-            <span id="totalSize" class="result-value">0 KB</span>
-          </div>
-        </div>
-        <button id="downloadBtn" class="primary-btn">Download ZIP</button>
-        <button id="newCaptureBtn" class="secondary-btn">New Capture</button>
-      </div>
-      
-      <div id="errorContainer" class="hidden">
-        <div class="error-icon">❌</div>
-        <div class="error-message" id="errorMessage">An error occurred</div>
-        <button id="retryBtn" class="secondary-btn">Try Again</button>
-      </div>
-    </main>
-    
-    <footer>
-      <div class="tip">Tip: Captured files will be organized in folders</div>
-    </footer>
-  </div>
+  <h1>Frontend Inspector</h1>
+  <p>Capture and download website code</p>
+  
+  <button id="captureBtn">📥 Download Page Code</button>
+  
+  <div id="status"></div>
   
   <script src="popup.js"></script>
 </body>
