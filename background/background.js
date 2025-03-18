@@ -76,20 +76,18 @@ let captureState = {
     // Send progress update
     sendProgressUpdate(10, 'Capturing HTML structure...');
     
-    // Inject content script to capture the HTML
-    chrome.scripting.executeScript({
-      target: { tabId: tabId },
-      files: ['lib/jszip.min.js', 'lib/FileSaver.min.js', 'content/content.js']
-    }).then(() => {
-      // Send message to the content script to start capture
-      chrome.tabs.sendMessage(tabId, { 
-        action: 'startCapture',
-        captureId: captureState.captureId,
-        url: url,
-        title: title
-      });
-    }).catch(error => {
-      sendCaptureError('Failed to inject capture script: ' + error.message);
+    // The content scripts should already be loaded via manifest.json
+    // Send message to the content script to start capture
+    chrome.tabs.sendMessage(tabId, { 
+      action: 'startCapture',
+      captureId: captureState.captureId,
+      url: url,
+      title: title
+    }, response => {
+      // Handle case where content script might not be loaded
+      if (chrome.runtime.lastError) {
+        sendCaptureError('Failed to communicate with content script: ' + chrome.runtime.lastError.message);
+      }
     });
   }
   
@@ -184,37 +182,8 @@ let captureState = {
   async function createZipPackage() {
     if (!captureState.inProgress) return;
     
-    // Dynamically import JSZip
     try {
-      // Create ZIP package
-      const JSZip = eval(`
-        class JSZip {
-          constructor() {
-            this.files = {};
-            this.folders = {};
-          }
-          
-          file(path, content) {
-            this.files[path] = content;
-            return this;
-          }
-          
-          folder(name) {
-            if (!this.folders[name]) {
-              this.folders[name] = new JSZip();
-            }
-            return this.folders[name];
-          }
-          
-          async generateAsync() {
-            // We're simulating the ZIP creation here
-            // In a real implementation, we would use the actual JSZip library
-            return new Blob(['Simulated ZIP content'], { type: 'application/zip' });
-          }
-        }
-        JSZip;
-      `);
-      
+      // Create ZIP package using JSZip global
       const zip = new JSZip();
       
       // Add HTML
