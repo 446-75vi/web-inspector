@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frontend Inspector Tool</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Frontend Inspector</h1>
+      <p>Capture and download website frontend code</p>
+    </header>
+    
+    <main>
+      <button id="captureBtn" class="primary-btn">
+        <span class="icon">📥</span>
+        <span>Capture This Page</span>
+      </button>
+      
+      <div id="progressContainer" class="hidden">
+        <div class="progress-text">
+          <span id="currentTask">Starting capture...</span>
+          <span id="progressPercent">0%</span>
+        </div>
+        <div class="progress-bar-container">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+        <button id="cancelBtn" class="secondary-btn">Cancel</button>
+      </div>
+      
+      <div id="resultContainer" class="hidden">
+        <div class="result-details">
+          <div class="result-item">
+            <span class="result-label">HTML Files:</span>
+            <span id="htmlCount" class="result-value">0</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">CSS Files:</span>
+            <span id="cssCount" class="result-value">0</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">JS Files:</span>
+            <span id="jsCount" class="result-value">0</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Other Files:</span>
+            <span id="otherCount" class="result-value">0</span>
+          </div>
+          <div class="result-item">
+            <span class="result-label">Total Size:</span>
+            <span id="totalSize" class="result-value">0 KB</span>
+          </div>
+        </div>
+        <button id="downloadBtn" class="primary-btn">Download ZIP</button>
+        <button id="newCaptureBtn" class="secondary-btn">New Capture</button>
+      </div>
+      
+      <div id="errorContainer" class="hidden">
+        <div class="error-icon">❌</div>
+        <div class="error-message" id="errorMessage">An error occurred</div>
+        <button id="retryBtn" class="secondary-btn">Try Again</button>
+      </div>
+    </main>
+    
+    <footer>
+      <div class="tip">Tip: Captured files will be organized in folders</div>
+    </footer>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
